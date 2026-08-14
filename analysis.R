@@ -59,26 +59,7 @@ parse_chorale <- function(lines, id) {
     res$flag <- "spine_split"; return(done())
   }
 
-  ttl <- str_subset(lines, "^!!!OTL")
-  if (length(ttl) > 0) res$title <- str_replace(ttl[1], "^[^:]*:\\s*", "")
 
-  hdr_i <- which(str_detect(lines, "^\\*\\*"))[1]
-  hdr <- str_split(lines[hdr_i], "\t")[[1]]
-  k_cols <- which(hdr == "**kern")
-  if (length(k_cols) < 4) res$flag <- "non_standard_voices"
-  bass_col <- k_cols[1]
-  sop_col  <- k_cols[length(k_cols)]
-
-  body <- lines[(hdr_i + 1):length(lines)]
-  tokens <- str_split(body, "\t")
-  data_toks <- tokens[!str_detect(body, "^[!*=]") & nchar(body) > 0]
-
-  # Find key metadata tokens
-  key_tok <- tokens %>% 
-    map(~ str_subset(.x, "^\\*[A-Ga-g][#n-]*:$")) %>% 
-    compact() %>% 
-    map_chr(1, .default = NA_character_) %>% 
-    pluck(1, .default = NA_character_)
 
   key_sig <- tokens %>% 
     map(~ str_subset(.x, "^\\*k\\[[^]]*\\]$")) %>% 
