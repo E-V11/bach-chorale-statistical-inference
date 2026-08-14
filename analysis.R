@@ -131,16 +131,7 @@ parse_chorale <- function(lines, id) {
   res$final_sop_degree <- deg_from(sp$letter, t_info$letter)
   res$sop_matches_tonic_pc <- as.integer(sp$pc == t_info$pc)
 
-  # Intermediate phrase endings
-  phrase_rows <- map_dfr(seq_along(data_toks), function(i) {
-    tk <- data_toks[[i]][sop_col]
-    if (!is.na(tk) && str_detect(tk, ";")) {
-      p <- parse_pitch(tk)
-      if (!is.null(p)) return(tibble(id = id, degree = deg_from(p$letter, t_info$letter)))
-    }
-    NULL
-  })
-  
+
   phrases <- bind_rows(phrases, phrase_rows)
   done()
 }
