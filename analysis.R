@@ -4,12 +4,7 @@ library(scales)
 
 # Analyzing cadences in Bach's 371 chorales (Tidyverse version)
 base_url <- "https://raw.githubusercontent.com/craigsapp/bach-371-chorales/master/kern"
-cache_dir <- "kern_cache"
-dir.create(cache_dir, showWarnings = FALSE)
-
-# Local caching helper
-fetch_chorale <- function(i) {
-  f <- file.path(cache_dir, sprintf("chor%03d.krn", i))
+cache_dir <-
   if (!file.exists(f)) {
     tryCatch(download.file(sprintf("%s/chor%03d.krn", base_url, i), f, quiet = TRUE),
              error = function(e) if (file.exists(f)) unlink(f))
