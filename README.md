@@ -1,2 +1,1 @@
-# Goodness-of-Fit-Tests-on-Discrete-Sovereign-State-Distributions-in-Bach-and-Brahms
-xyz
+Empirical Statistical Inference: Bach Chorale Structural Analysis using R.
